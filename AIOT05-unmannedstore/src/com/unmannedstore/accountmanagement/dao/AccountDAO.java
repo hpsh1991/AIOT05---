@@ -22,7 +22,7 @@ import com.unmannedstore.accountmanagement.model.Account;
 public class AccountDAO {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/unmannedstore?useSSL=false&serverTimezone=CST";
 	private String jdbcUsername = "root";
-	private String jdbcPassword = "egg50611";
+	private String jdbcPassword = "raspberry";
 
 	private static final String INSERT_ACCOUNT_SQL = "INSERT INTO account" + "  (name, password, email, phone, birthday, memberimg, membercode, memberrank, memberpoints) VALUES "
 			+ " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -33,6 +33,7 @@ public class AccountDAO {
 	private static final String UPDATE_ACCOUNT_SQL = "update account set password =?,email= ?  where name = ?;";
 	private static final String UPDATE_PASSWORD_SQL = "update account set password =? where email = ?;";
 	private static final String UPDATE_MEMBERPOINTS_BY_MEMBERCODE = "update account set memberpoints =? where membercode = ?;";
+	private static final String UPDATE_MEMBERRANK_BY_PHONE = "update account set memberrank =? where phone = ?;";
 	private static final String SELECT_MEMBERPOINTS_BY_MEMBERCODE = "select memberpoints from account where membercode =?";
 	
 	//P.105-P107
@@ -86,7 +87,7 @@ public class AccountDAO {
 
 			// Step 4: Process the ResultSet object.
 			while (rs.next()) {
-				String Accountmembercode=rs.getString("email");
+				String Accountmembercode=rs.getString("membercode");
 				if(membercode.equals(Accountmembercode)) {
 					checkmembercode=true;
 					break;
@@ -132,7 +133,10 @@ public class AccountDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			// Step 4: Process the ResultSet object.
-			memberpoints=rs.getInt("memberpoints");
+			while (rs.next()) {
+				memberpoints=rs.getInt("memberpoints");
+			}
+			
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
@@ -160,7 +164,7 @@ public class AccountDAO {
 				String birthday=rs.getString("birthday");
 				String memberimg=rs.getString("memberimg");
 				String membercode=rs.getString("membercode");
-				int memberrank=rs.getInt("rank");
+				int memberrank=rs.getInt("memberrank");
 				int memberpoints=rs.getInt("memberpoints");
 				account = new Account(id,name, password, email, phone, birthday, memberimg, membercode, memberrank, memberpoints);		
 			}
@@ -232,6 +236,19 @@ public class AccountDAO {
 				PreparedStatement statement = connection.prepareStatement(UPDATE_MEMBERPOINTS_BY_MEMBERCODE);) {
 			statement.setInt(1,memberpoints);
 			statement.setString(2,membercode);
+			System.out.println(statement);
+			rowUpdated = statement.executeUpdate() > 0;
+		}
+		return rowUpdated;
+	}
+	
+	public boolean updateMemberrankbyphone(String phone) throws SQLException {
+		// 更新會員等級至3
+		boolean rowUpdated;
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(UPDATE_MEMBERRANK_BY_PHONE);) {
+			statement.setInt(1,3);
+			statement.setString(2,phone);
 			System.out.println(statement);
 			rowUpdated = statement.executeUpdate() > 0;
 		}

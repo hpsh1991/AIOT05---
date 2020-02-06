@@ -42,18 +42,18 @@ public class LoginFilter implements Filter {
 		// place your code here
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
-		String name=request.getParameter("name");
+		String email=request.getParameter("email");
 		String password=request.getParameter("password");
 		PrintWriter out=response.getWriter();
 		// pass the request along the filter chain
 		accountDAO=new AccountDAO();
-		Account account=accountDAO.selectAccountByName(name);
+		Account account=accountDAO.selectAccountByEmail(email);
 		String accountPassword=account.getPassword();
-		Boolean checkName=accountDAO.checkAccountByName(name);
-		if(checkName&&password.equals(accountPassword)) {
+		Boolean checkemail=accountDAO.checkAccountByEmail(email);
+		if(checkemail&&password.equals(accountPassword)) {
 				chain.doFilter(request, response);	
 		}else {
-			out.print("<p align='center'\">使用者帳號或密碼錯誤!!</p>");
+			out.print("使用者帳號或密碼錯誤!!");
 			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 	}

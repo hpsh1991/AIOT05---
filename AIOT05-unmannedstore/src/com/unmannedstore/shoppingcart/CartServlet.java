@@ -49,7 +49,7 @@ public class CartServlet extends HttpServlet {
 		List<String> listcarts = (List<String>) request.getSession().getAttribute("cart");
 		
         if (listcarts.isEmpty()) {
-        	System.out.println("�ʪ����O�Ū�");
+        	System.out.println("購物車是空的");
             response.sendRedirect("shoppingServlet");
             return;
         }
@@ -60,17 +60,17 @@ public class CartServlet extends HttpServlet {
                 );
         
         System.out.println("Map<String, Long> goods:"+goods);
-    	Set keySet = goods.keySet(); 
-    	Iterator it = keySet.iterator();
+    	Set keySet = goods.keySet(); // 獲取map集合中的所有鍵的Set集合, keySet()
+    	Iterator it = keySet.iterator();// 有了set集合就可以獲取迭代器
     	
     	List<Cart> newlistcart=new ArrayList<>();
     	goodsDAO =new goodsDAO();
     	int totalprice=0;
     	while(it.hasNext()) {
     		String key=(String) it.next();
-    		
+    		// 有了鍵就可以通過map集合的get方法獲取其對應的値
     		Long value=goods.get(key);
-    		
+    		//建立 newlistcart 
         	int id= Integer.parseInt(key);
         	goods selectGoods=goodsDAO.selectGoodsByID(id);
         	String name=selectGoods.getName();

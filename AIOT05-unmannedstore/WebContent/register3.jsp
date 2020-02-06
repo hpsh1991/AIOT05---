@@ -25,9 +25,9 @@
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.html">首頁</a></li>
-					<li><a href="login.jsp">登入</a></li>
-					<li><a href="register1.jsp">註冊</a></li>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="login.jsp">Login</a></li>
+					<li><a href="register1.jsp">Register</a></li>
 				</ul>
 			</nav>
 
@@ -47,38 +47,31 @@
                     <div class="6u 12u$(medium)">
                         <h2 style="position: absolute;left: 550px;top: 350px">Register</h2>
                         <h3 style="position: absolute;left: 570px;top: 400px">基本資料</h3>
-                            <form id="POST" method="post">
+                            <form id="Post" method="post">
                                 <div >
                                     <div>
                                         <h4 style="position: absolute;left: 750px;top: 370px">姓名:</h4>
                                         <input type="text" name="name" id="name" value="" placeholder="姓名" style="width: 250px; position: absolute;left: 800px;top: 360px">
-                                        <span id="nameMsg" style="position: absolute;left: 825px;top: 412px; color:red; font-size:14px"></span>
-                                        <span id="nameImg" style="position:absolute;left:800px;top:413px"></span>
+                                        <span id="nameMsg"></span>
                                         
                                         <h4 style="position: absolute;left: 740px;top: 450px">Email:</h4>
                                         <input type="text" name="email" id="email" value="${sessionScope.email}" readonly="readonly" style="width: 250px; position: absolute;left: 800px;top: 440px">
                                         
                                         <h4 style="position: absolute;left: 697px;top: 530px">請輸入密碼:</h4>
                                         <input type="text" name="password" id="password" value="" placeholder="請輸入密碼" style="width: 250px; position: absolute;left: 800px;top: 520px">
-                                        <span id="passwordMsg2" style="position:absolute;left:800px;top:575px;color:darkgray;font-size:14px">(至少6個字且必須包含英文、數字)</span>
-                                        <span id="passwordMsg" style="position:absolute;left:825px;top:573px;color:red;font-size:14px"></span>
-                                        <span id="passwordImg" style="position:absolute;left:800px;top:575px"></span>
+                                        <span id="checkpwd2" style="position:absolute;left:800px;top:575px;color:darkgray;font-size:14px">(至少6個字且必須包含英文、數字)</span>
+                                        <span id="checkpwd"></span>
 
                                         
                                         <h4 style="position: absolute;left: 660px;top: 610px">請再次輸入密碼:</h4>
                                         <input type="text" name="chkpass" id="chkpass" value="" placeholder="請再次輸入密碼" style="width: 250px; position: absolute;left: 800px;top: 600px">
-                                        <span id="chkpassMsg" style="position:absolute;left:825px;top:653px;color:red;font-size:14px"></span>
-                                        <span id="chkpassImg" style="position:absolute;left:800px;top:655px"></span>
                                         
                                         <h4 style="position: absolute;left: 1145px;top: 383px">出生年月日:</h4>
                                         <input type="date" name="date" id="date" value="" placeholder="出生年月日" style="width: 250px; position: absolute;left: 1250px;top: 380px">
-                                        <span id="dateMsg" style="position:absolute;left:1275px;top:416px;color:red;font-size:14px"></span>
-                                        <span id="dateImg" style="position:absolute;left:1250px;top:418px"></span>
                                         
                                         <h4 style="position: absolute;left: 1165px;top: 450px">行動電話:</h4>
                                         <input type="text" name="mobile" id="mobile" value="" placeholder="請輸入行動電話" style="width: 250px; position: absolute;left: 1250px;top: 440px"/>
-                                        <span id="mobileMsg" style="position: absolute;left: 1275px;top: 492px; color:red; font-size:14px"></span>
-                                        <span id="mobileImg" style="position:absolute;left:1250px;top:493px"></span>
+                                        <span id="mobileMsg"></span>
                                         
                                         <h4 style="position: absolute;left: 1125px;top: 530px">好友推薦代碼:</h4>
                                         <input type="text" name="friendcode" id="friendcode" value="" placeholder="請輸入好友推薦代碼" style="width: 250px; position: absolute;left: 1250px;top: 520px">
@@ -117,51 +110,48 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-			<script>
+			<script language="javascript">
 				
 				var chk1=false;
 				var chk2=false;
 				var chk3=false;
-				var chk4=false;
-				var chk5=false;
 			
-//手機驗證
 				document.getElementById("mobile").addEventListener("blur",checkSubmitMobil);
 				function checkSubmitMobil() {
-					if ($("#mobile").val() == "") {
-						$("#mobileImg").html("<img src='images/icon1.png' style='width:20px;height:20px'/>")
-						$("#mobileMsg").html("手機號碼不能為空");          
+					
+				    if ($("#mobile").val() == "") {
+				               $("#mobileMsg").html("<img src='images/icon1.png' style='position:absolute;width:20px;height:20px;left:1250px;top:493px'></img><span style='position: absolute;left: 1275px;top: 492px; color:red; font-size:14px'>手機號碼不能為空</span>");          
 				    $("#mobile").focus();
-				  }  
-				  else if (!$("#mobile").val().match(/^[09]{2}[0-9]{8}$/)) {
-					  	$("#mobileImg").html("<img src='images/icon1.png' style='width:20px;height:20px'/>")
-						$("#mobileMsg").html("手機號碼格式不正確,請重新輸入");
-				        $("#mobile").focus();
 				  }
-				  else{
+				    else{
 						$("#mobileMsg").html("");
-						$("#mobileImg").html("");
+						chk1=true;
+				    }
+				    
+				    if (!$("#mobile").val().match(/^[09]{2}[0-9]{8}$/)) {
+				         $("#mobileMsg").html("<img src='images/icon1.png' style='position:absolute;width:20px;height:20px;left:1250px;top:493px'><span style='position: absolute;left: 1275px;top: 492px; color:red; font-size:14px'>手機號碼格式不正確,請重新輸入</span>");
+				        $("#mobile").focus();
+				        }
+				    else{
+				    	$("#mobileMsg").html("");
 				    	chk1=true;
 				    }
+
 				 }
 				
-//姓名是否輸入
 				document.getElementById("name").addEventListener("blur",checkName);
 				function checkName(){
 					
 					if($("#name").val()==""){
-						$("#nameImg").html("<img src='images/icon1.png' style='width:20px;height:20px'>")
-						$("#nameMsg").html("尚未輸入姓名")
+						$("#nameMsg").html("<img src='images/icon1.png' style='position:absolute;width:20px;height:20px;left:800px;top:413px'><span style='position: absolute;left: 825px;top: 412px; color:red; font-size:14px'>尚未輸入姓名</span>")
 						$("#name").focus();
 					}
 					else{
-						$("#nameImg").html("");
 						$("#nameMsg").html("");
 						chk2=true;
 					}
 				}
 				
-//密碼驗證
 				document.getElementById("password").addEventListener("blur",checkpwd);
 				function checkpwd(){
 					
@@ -171,9 +161,8 @@
 	                let x;
 
 	                if(thePwdVal==""){
-	                	$("#passwordMsg2").html("");	
-	                	$("#passwordImg").html("<img src='images/icon1.png' style='width:20px;height:20px'>")
-	                	$("#passwordMsg").html("密碼未輸入")
+	                	$("#checkpwd2").html("");	                    
+	                	$("#checkpwd").html("<img src='images/icon1.png' style='position:absolute;width:20px;height:20px;left:800px;top:575px'><span style='position:absolute;left:825px;top:573px;color:red;font-size:14px'>密碼未輸入</span>")
 	                	$("#password").focus();
 	                }else if(thePwdLen>=6){
 
@@ -190,63 +179,34 @@
 	                        }
 	                    }
 	                    if (flag1 && flag2){
-	                    	$("#passwordMsg2").html("");
-	                    	$("#passwordMsg").html("");
-	                    	$("#passwordImg").html("")
+	                    	$("#checkpwd2").html("");
+	                    	$("#checkpwd").html("");
 	                    	chk3=true;
 	                    }else{ 
-	                    	$("#passwordMsg2").html("");
-		                	$("#passwordImg").html("<img src='images/icon1.png' style='width:20px;height:20px'>")
-		                    $("#passwordMsg").html("密碼不符合規則");
+	                    	$("#checkpwd2").html("");
+		                    $("#checkpwd").html("<img src='images/icon1.png' style='position:absolute;width:20px;height:20px;left:800px;top:575px'><span style='position:absolute;left:825px;top:573px;color:red;font-size:14px'>密碼不符合規則</span>");
 		                    $("#password").focus();
 	                    }
 	                }
 	                else{
-	                	$("#passwordMsg2").html("");
-	                	$("#passwordImg").html("<img src='images/icon1.png' style='width:20px;height:20px'>")
-	                    $("#passwordMsg").html("密碼不可少於6個字")
+	                	$("#checkpwd2").html("");
+	                    $("#checkpwd").html("<img src='images/icon1.png' style='position:absolute;width:20px;height:20px;left:800px;top:575px'><span style='position:absolute;left:825px;top:573px;color:red;font-size:14px'>密碼不可少於6個字</span>")
 	                    $("#password").focus();
 	                } 	                
 	            }
 				
-//密碼再次確認驗證
-				document.getElementById("chkpass").addEventListener("blur",checkpwd2);
-				function checkpwd2(){
-					if ($("#password").val()==$("#chkpass").val()){
-						$("#chkpassMsg").html("");
-						$("#chkpassImg").html("")
-						chk4=true;
-					}
-					else{
-						$("#chkpassImg").html("<img src='images/icon1.png' style='width:20px;height:20px'>")
-						$("#chkpassMsg").html("驗證密碼輸入錯誤")
-						$("#chkpass").focus();
-					}
-				}
-				
-				document.getElementById("date").addEventListener("blur",checkdate);
-				function checkdate(){
-					if ($("#date").val()==""){
-						$("#dateImg").html("<img src='images/icon1.png' style='width:20px;height:20px;'>")
-						$("#dateMsg").html("日期未輸入")
-						$("#date").focus();
-					}
-					else{
-						$("#dateMsg").html("");
-						$("#dateImg").html("");
-						chk5=true;
-					}
-				}
-				
-//所有格子是否填寫
 				function chk(){
-					if(chk1 && chk2 && chk3 && chk4 && chk5){	
-						POST.action="insertServlet";
-						POST.submit()
+					console.log(chk1);
+					console.log(chk2);
+					console.log(chk3);
+					if(chk1&&chk2&&chk3){
+						Post.action="insertServlet"; 
+						Post.submit();
+					}else{
+						alert("失敗");
 					}
-					else{
-						alert("尚有資料未輸入");
-					}
+					
+
 				}
 			</script>
 	</body>

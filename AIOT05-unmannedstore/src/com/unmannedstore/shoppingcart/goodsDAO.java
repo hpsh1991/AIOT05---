@@ -10,7 +10,7 @@ import java.util.List;
 public class goodsDAO {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/unmannedstore?useSSL=false&serverTimezone=CST";
 	private String jdbcUsername = "root";
-	private String jdbcPassword = "egg50611";
+	private String jdbcPassword = "raspberry";
 	
 	private static final String SELECT_ALL_GOODS = "select * from goods";
 	private static final String SELECT_GOODS_BY_ID = "select id, name, price, quantity, information, sales, img from goods where id =?";

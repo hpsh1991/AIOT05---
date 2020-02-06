@@ -24,9 +24,9 @@
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.html">首頁</a></li>
-					<li><a href="login.jsp">登入</a></li>
-					<li><a href="register1.jsp">註冊</a></li>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="login.jsp">Login</a></li>
+					<li><a href="register1.jsp">Register</a></li>
 				</ul>
 			</nav>
 
@@ -60,10 +60,8 @@
                                     </div>
                                     
                                     <div>
-                                    	<label for="insrand" id="rand" style="position: absolute;left: 960px;top:540px;"></label>
+                                    	<label for="insrand" id="rand"></label>
                                     </div>
-                                    <span id="check" style="font-size:12px;position:absolute;left:920px;top:415px;color:red"></span>
-                                    <span id="checkImg"></span>
                                     
                                 </div><br>
                                 <ul class="actions fit small">
@@ -76,7 +74,7 @@
                                         <a href="#" onclick="creatrand();" class="button alt fit small" style="width: 150px;position: absolute;left: 1028px;top:525px;text-align: center">重新產生驗證碼</a>
                                     </li>
                                 </ul>
-                                <input type="button" onclick="post();" name="submit" value="登入" style="position: absolute;left: 1250px;top: 525px">
+                                <input type="button" onclick="post();" name="button" value="登入" style="position: absolute;left: 1250px;top: 525px">
                                 <input type="reset" value="清除" style="position: absolute;left: 1350px;top: 525px">
                             </form>
                     </div>
@@ -103,41 +101,38 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			
 			<script language="javascript">
 
-				var rand=document.getElementById("rand"); 
-				var insrand=document.getElementById("insrand");
-				
-				creatrand();
-				
-				function creatrand(){
-				    var newrand="";
-				    for(var i=0;i<4;i++){
-				    	newrand+=(Math.floor(Math.random()*9+1)).toString();
-				    }   
-				    rand.innerHTML=newrand;
-				}
-				
-				function post() {
-				   var randval=rand.innerHTML;
-				   var insrandval=insrand.value;
-				   if(randval==insrandval) {
-				  		Post.action = "LoginServlet";
-				  		Post.submit();
-					}else{
-						x="驗證碼錯誤"
-						$("#checkImg").html("<img src='images/icon1.png' style='width:20px;height:20px;position: absolute;left:930px;top:445px'>");
-					}
-				   document.getElementById("check").innerHTML=x;
-				}
-				
-				function mail() {
-					Post.action = "MailServlet";
-					Post.submit();
-				}
-				
-			</script>
+var rand=document.getElementById("rand"); 
+var insrand=document.getElementById("insrand");
+
+creatrand();
+
+function creatrand(){
+    var newrand="";
+    for(var i=0;i<4;i++){
+    	newrand+=(Math.floor(Math.random()*9+1)).toString();
+    }   
+    rand.innerHTML=newrand;
+}
+
+function post() {
+   var randval=rand.innerHTML;
+   var insrandval=insrand.value;
+   if(randval==insrandval) {
+  		Post.action = "LoginServlet";
+  		Post.submit();
+	}else{
+  		alert("驗證碼輸入錯誤!");
+	}
+}
+
+function mail() {
+	Post.action = "MailServlet";
+	Post.submit();
+}
+
+</script>
 			
 
 	</body>
