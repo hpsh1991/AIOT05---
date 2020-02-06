@@ -25,9 +25,9 @@
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="login.jsp">Login</a></li>
-					<li><a href=register1.jsp>Register</a></li>
+					<li><a href="index.html">首頁</a></li>
+					<li><a href="login.jsp">登入</a></li>
+					<li><a href=register1.jsp>註冊</a></li>
 				</ul>
 			</nav>
 
@@ -47,7 +47,6 @@
                     <div class="6u 12u$(medium)">
                         <h2 style="position: absolute;left: 650px">Register</h2>
                         <h3 style="position: absolute;left: 670px;top: 470px">請輸入信箱進行註冊</h3>
-                        <h3 id="error"></h3>
                             <form method="post" action="RegMailServlet">
                                 <div >
                                     <div>

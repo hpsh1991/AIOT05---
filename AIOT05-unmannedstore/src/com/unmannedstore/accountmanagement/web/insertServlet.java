@@ -51,21 +51,23 @@ public class insertServlet extends HttpServlet {
 		accountDAO=new AccountDAO();
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
-		// 接收顧客輸入的資料
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
-		String birthday =request.getParameter("date");
+		String birthday =request.getParameter("birthday");
 		String memberimg=createImgurPATH(request.getParameter("memberimg"));
-		int own_points=addpoints(request.getParameter("friendcode"));
-		// 隨機產生顧客代碼
+		int own_points=0;
+		try {
+			own_points=addpoints(request.getParameter("friendcode"));
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String membercode = createMembercode();
-		// 預設一般客戶等級為2
 		int memberrank=2;
-		// 首次註冊贈送100點數,推薦好友加贈50點數
 		int memberpoints=100+own_points;
-		Account newAccount = new Account(name, password, email, phone, birthday, memberimg, membercode, memberrank, memberpoints);
+		Account newAccount = new Account(name, password, email, phone, birthday, memberimg, membercode, memberrank, memberpoints);	
 		try {
 			accountDAO.insertAccount(newAccount);
 		} catch (SQLException e) {
@@ -73,7 +75,7 @@ public class insertServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		PrintWriter out=response.getWriter();
-		out.print("註冊完成,請重新登入!");
+		out.print("<h3 style='position:absolute;left:850px;top:400px;'>註冊完成,請重新登入!</h3>");
 		request.getRequestDispatcher("login.jsp").include(request, response);
 		
 	}
@@ -107,7 +109,7 @@ public class insertServlet extends HttpServlet {
 	}
 	
 	static String createcode() {
-		// 隨機產生顧客代碼(2英文+5數字)
+		
 		char engs[] = {'a','b','c','d','e','f','g','h','i','j','k'};
 		char nums[]={'1','2','3','4','5','6','7','8','9','0'};
 		char randEngStr[] = new char[2];
@@ -125,8 +127,7 @@ public class insertServlet extends HttpServlet {
 		return returnEngStr+returnNumStr;
 	}
 	
-	static String createMembercode() {	
-		// 確認顧客代碼是否重複,如有重複重新產生一組顧客代碼
+	static String createMembercode() {		
 		String code=createcode();
 		while(accountDAO.checkmembercode(code)) {
 			code=createcode();
@@ -134,19 +135,14 @@ public class insertServlet extends HttpServlet {
 		return code;
 	}
 	
-	static int addpoints(String friendcode) {
-		// 好友推薦贈點功能
+	static int addpoints(String friendcode) throws SQLException {
+		System.out.println("好友推薦:"+friendcode);
 		int own_points=0;
 		if(accountDAO.checkmembercode(friendcode)) {
 			own_points=50;
-			int points=0;
-			points=100+accountDAO.selectMemberpointsByMembercode(friendcode);
-			try {
-				accountDAO.updateMemberpoints(points, friendcode);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			int points=accountDAO.selectMemberpointsByMembercode(friendcode);
+			points=points+100;
+			accountDAO.updateMemberpoints(points, friendcode);
 		}
 		return own_points;
 	}

@@ -38,10 +38,10 @@ public class editAccountServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session=request.getSession(false);
-		String email=(String)session.getAttribute("loginaccount");
-		System.out.println("editAccountServlet:"+email);
-		//session.setAttribute("loginaccount", email);	
-		Account existingAccount=accountDAO.selectAccountByEmail(email);
+		String name=(String)session.getAttribute("loginaccount");
+		System.out.println("editAccountServlet:"+name);
+		session.setAttribute("loginaccount", name);	
+		Account existingAccount=accountDAO.selectAccountByName(name);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("account-form.jsp");
 		request.setAttribute("account", existingAccount);
 		dispatcher.forward(request, response);

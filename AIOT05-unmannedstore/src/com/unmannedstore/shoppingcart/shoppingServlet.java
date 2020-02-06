@@ -45,7 +45,7 @@ public class shoppingServlet extends HttpServlet {
 		goodsDAO=new goodsDAO();
 		List<goods> goods=goodsDAO.selectAllgoods();
 		request.setAttribute("goods", goods);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("shopping.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("shopping1.jsp");
 		dispatcher.forward(request, response);
 	}
 

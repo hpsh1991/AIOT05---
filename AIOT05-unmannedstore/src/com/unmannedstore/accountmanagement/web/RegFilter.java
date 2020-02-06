@@ -1,5 +1,5 @@
 package com.unmannedstore.accountmanagement.web;
-
+/*修改 51 52 56 57*/
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -10,8 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpSession;
 
 import com.unmannedstore.accountmanagement.dao.AccountDAO;
 
@@ -49,14 +47,15 @@ public class RegFilter implements Filter {
 		Boolean checkEmail=accountDAO.checkAccountByEmail(email);
 		// pass the request along the filter chain
 		if(email=="") {
-			out.print("請輸入帳號");
+			out.print("<img src='images/icon1.png' style='position:absolute;width:20px;height:20px;left:800px;top:575px'>");
+			out.print("<span style='position:absolute;left:825px;top:575px;font-size:14px;color:red'>請輸入信箱</span>");
 			System.out.println("使用者註冊:使用者未輸入帳號");
-			request.getRequestDispatcher("registered1.jsp").include(request, response);
+			request.getRequestDispatcher("register1.jsp").include(request, response);
 		}else {
 			if(checkEmail) {
-				out.print(email+"已被使用");
-				System.out.println("使用者註冊:"+email+"已被使用");
-				request.getRequestDispatcher("registered1.jsp").include(request, response);
+				out.print("<img src='images/icon1.png' style='position:absolute;width:20px;height:20px;left:800px;top:575px'>");
+				out.print("<span style='position:absolute;left:825px;top:575px;font-size:14px;color:red'>Email已被使用</span>");				System.out.println("使用者註冊:"+email+"已被使用");
+				request.getRequestDispatcher("register1.jsp").include(request, response);
 			}else {
 				chain.doFilter(request, response);
 			}

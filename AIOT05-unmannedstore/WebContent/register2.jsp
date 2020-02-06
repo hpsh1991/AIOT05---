@@ -25,9 +25,9 @@
 		<!-- Nav -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="login.jsp">Login</a></li>
-					<li><a href="register1.jsp">Register</a></li>
+					<li><a href="index.html">首頁</a></li>
+					<li><a href="login.jsp">登入</a></li>
+					<li><a href="register1.jsp">註冊</a></li>
 				</ul>
 			</nav>
 
@@ -48,12 +48,13 @@
                         <h2 style="position: absolute;left: 650px">Register</h2>
                         <h3 style="position: absolute;left: 670px;top: 470px">已經將驗證碼寄於${sessionScope.email}</h3>
                         <h3>測試用驗證碼提示: ${sessionScope.VerificationCode}<br></h3>
-                        <h3 id="VerificationCode"></h3>
                             <form id="Post" method="post">
                                 <div >
                                     <div>
                                         <input type="text" id="VerificationCode" name="VerificationCode" value="" placeholder="請輸入驗證碼" style="width: 250px; position: absolute;left: 800px;top: 522px">
                                     </div>
+                                    <span id="codeMsg" style="position:absolute;left:825px;top:578px;font-size:14px;color:red"></span>
+                                    <span id="imgMsg" style="position:absolute;left:800px;top:580px"></span>
                                     
                                 </div><br>
 
@@ -90,12 +91,10 @@
 				  		Post.action = "register3.jsp";
 				  		Post.submit();
 					}else{
-				  		alert("驗證碼輸入錯誤!");
+						$("#imgMsg").html("<img src='images/icon1.png' style='width:20px;height:20px'>")
+				  		$("#codeMsg").html("驗證碼輸入錯誤!");
 					}
 				}
-			</script>
-			<script>
-				document.getElementById("VerificationCode").innerHTML=${sessionScope.VerificationCode};
 			</script>
 
 	</body>
